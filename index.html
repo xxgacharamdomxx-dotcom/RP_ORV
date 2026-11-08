@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORV - Sistema de Rol</title>
-    <!-- Vinculación de los estilos externos -->
-    <link rel="stylesheet" href="css/styles.css">
+    <!-- Ruta relativa corregida para la hoja de estilos -->
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
 
@@ -63,7 +63,7 @@
                 <div class="stat-line">Ubicación: Seúl, Estación de Oksu</div>
             </div>
 
-            <!-- PESTAÑA 7: Canal Midtryst (Bloqueado por defecto) -->
+            <!-- PESTAÑA 7: Canal Midtryst (Bloqueado) -->
             <div class="tab-content" id="midtrystBox">
                 <div class="locked-text" id="midtrystLockedState">
                     <p>[El acceso a esta frecuencia requiere la compra del 'Midtryst' en la Bolsa Dokkaebi]</p>
@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <!-- Barra de Entrada de Texto Estilo WorldOS -->
+        <!-- Barra de Entrada de Texto -->
         <div class="action-container" id="actionContainer">
             <div class="input-wrapper">
                 <input type="text" id="userInput" placeholder="¿Qué haces?" onkeypress="checkEnter(event)">
@@ -82,7 +82,7 @@
             <button class="send-icon-btn" onclick="sendMessage()">➔</button>
         </div>
 
-        <!-- Barra de Opciones de Iconos Inferior -->
+        <!-- Barra de Navegación de Iconos Inferior -->
         <div class="bottom-nav">
             <button class="nav-item active" id="nav-chat" onclick="switchTab('chatBox', 'nav-chat', 'HISTORIAL DE ROL')">
                 <span class="icon">💬</span><span>Rol</span>
@@ -108,7 +108,7 @@
         </div>
     </div>
 
-    <!-- Vinculación de la lógica de programación externa -->
-    <script src="js/main.js"></script>
+    <!-- Ruta relativa corregida para la lógica de programación -->
+    <script src="./js/main.js"></script>
 </body>
 </html>
