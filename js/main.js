@@ -18,7 +18,6 @@ let statMag = 0;
 let statsRolled = false;
 
 function startNewGame() {
-    // Oculta la pantalla de inicio y muestra el formulario de registro
     startScreen.style.display = 'none';
     document.getElementById('creationScreen').style.display = 'flex';
 }
