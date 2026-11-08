@@ -5,38 +5,14 @@ const appHeader = document.getElementById('appHeader');
 const actionContainer = document.getElementById('actionContainer');
 const mainContent = document.getElementById('mainContent');
 
-// Variables de Estado de la Encarnación
+// Variables globales leídas por ambos bloques
 let playerCoins = 100;
 let hasMidtryst = false;
 let currentActiveTab = 'chatBox';
 
-// Variables de Estadísticas del Dado
-let statStr = 0;
-let statVit = 0;
-let statAgi = 0;
-let statMag = 0;
-let statsRolled = false;
-
 function startNewGame() {
     startScreen.style.display = 'none';
     document.getElementById('creationScreen').style.display = 'flex';
-}
-
-function rollBaseStats() {
-    // Genera estadísticas aleatorias entre 5 y 15
-    statStr = Math.floor(Math.random() * 11) + 5;
-    statVit = Math.floor(Math.random() * 11) + 5;
-    statAgi = Math.floor(Math.random() * 11) + 5;
-    statMag = Math.floor(Math.random() * 11) + 5;
-    statsRolled = true;
-
-    // Actualiza los valores en la pantalla de previsualización
-    document.getElementById('rollStr').innerText = statStr;
-    document.getElementById('rollVit').innerText = statVit;
-    document.getElementById('rollAgi').innerText = statAgi;
-    document.getElementById('rollMag').innerText = statMag;
-    
-    alert("[El Sistema está evaluando tus estadísticas corporales...]");
 }
 
 function saveCharacterAndStart() {
@@ -49,7 +25,7 @@ function saveCharacterAndStart() {
         return;
     }
 
-    if (!statsRolled) {
+    if (typeof statsRolled === 'undefined' || !statsRolled) {
         alert("[Debes lanzar los dados 🎲 para inicializar tus estadísticas base antes del registro.]");
         return;
     }
