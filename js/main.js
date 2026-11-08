@@ -9,12 +9,39 @@ let playerCoins = 100;
 let hasMidtryst = false;
 let currentActiveTab = 'chatBox';
 
+// Nueva función para el botón de "Comenzar"
 function startNewGame() {
+    // Oculta la pantalla negra de inicio y muestra el formulario de registro
+    startScreen.style.display = 'none';
+    document.getElementById('creationScreen').style.display = 'flex';
+}
+
+// Nueva función para procesar el personaje e iniciar el rol
+function saveCharacterAndStart() {
+    const nameInput = document.getElementById('charName').value.trim();
+    const ageInput = document.getElementById('charAge').value.trim();
+    const descInput = document.getElementById('charDesc').value.trim();
+
+    // Validar que al menos ponga un nombre
+    if (nameInput === "") {
+        alert("[El Sistema requiere un nombre válido para registrar la Encarnación.]");
+        return;
+    }
+
+    // Insertar los datos capturados directamente en la pestaña de Perfil
+    document.getElementById('profileName').innerText = `[${nameInput}]`;
+    document.getElementById('profileAge').innerText = ageInput !== "" ? `${ageInput} años` : "--";
+    document.getElementById('profileDesc').innerText = descInput !== "" ? descInput : "--";
+
+    // Inicializar el mensaje de bienvenida personalizado en el chat
     chatBox.innerHTML = `
+        <div class="message"><span class="system-alert">[El Sistema ha registrado con éxito a la encarnación ${nameInput}.]</span></div>
         <div class="message"><span class="system-alert">[El Sistema te da la bienvenida al escenario.]</span></div>
         <div class="message">Camináis hacia la salida del jardín botánico, con los sentidos alerta a cualquier crujido de hojas o voz lejana que pueda delataros.</div>
     `;
-    startScreen.style.display = 'none';
+
+    // Ocultar pantalla de creación y encender la interfaz WorldOS
+    document.getElementById('creationScreen').style.display = 'none';
     appContainer.style.display = 'flex';
     switchTab('chatBox', 'nav-chat', 'HISTORIAL DE ROL');
 }
