@@ -20,8 +20,10 @@ let currentActiveTab = 'chatBox';
 let charNameGlobal = "";
 
 // Configuración de la IA Libre (Hugging Face)
-const HF_API_URL = "https://huggingface.co";
-const HF_TOKEN = "hf_pYxtvAtSSTpP" + "hLphXFfePZlJ" + "xmsYenVClBqQpY"; 
+const parte1 = "https://huggingface.co";
+const parte2 = "models/meta-llama/";
+const HF_API_URL = parte1 + parte2 + "Llama-3.2-3B-Instruct";
+; 
 
 // Catálogo de Constelaciones para interacciones aleatorias
 const constNames = [
