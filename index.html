@@ -39,7 +39,7 @@
                 <div style="border-top: 1px solid rgba(0, 210, 255, 0.2); padding-top: 10px; margin-top: 5px;">
                     <label style="display:block; font-size:11px; color:#00d2ff; margin-bottom:8px;">ESTADÍSTICAS BASE:</label>
                     <div style="display: flex; align-items: center; gap: 15px;">
-                        <button type="button" class="buy-btn" style="background: transparent; border: 1px solid #f59e0b; color: #f59e0b; padding: 10px;" onclick="rollBaseStats()">🎲 Lanzar Dados</button>
+                        <button type="button" class="buy-btn" style="background: transparent; border: 1px solid #f59e0b; color: #f59e0b; padding: 10px;" onclick="rollBaseStatsDirect()">🎲 Lanzar Dados</button>
                         <div style="font-size: 12px; line-height: 1.4; color: #c9d1d9;">
                             <div>Fuerza: <span id="rollStr">--</span></div>
                             <div>Resistencia: <span id="rollVit">--</span></div>
@@ -58,16 +58,13 @@
         <div class="app-header" id="appHeader">HISTORIAL DE ROL</div>
         
         <div class="main-content" id="mainContent">
-            <!-- Pestaña 1: Rol -->
             <div class="tab-content" id="chatBox"></div>
 
-            <!-- Pestaña 2: Constelaciones -->
             <div class="tab-content" id="constellationsBox">
                 <div class="message"><span class="constellation">[La constelación 'Prisionero de la Diadema Dorada' está rascándose la cabeza.]</span></div>
                 <div class="message"><span class="constellation">[La constelación 'Dragón Negro del Abismo de Fuego' devora con la mirada tu historial.]</span></div>
             </div>
 
-            <!-- Pestaña 3: Perfil -->
             <div class="tab-content" id="profileBox">
                 <div class="stat-line"><span class="highlight">Ventana de Estado</span></div>
                 <div class="stat-line">Nombre: <span id="profileName">[Sin Registrar]</span></div>
@@ -85,13 +82,11 @@
                 <div class="stat-line">Poder Mágico: <span id="profileMag" style="color: #f59e0b;">--</span></div>
             </div>
 
-            <!-- Pestaña 4: Monedero -->
             <div class="tab-content" id="walletBox">
                 <div class="stat-line"><span class="highlight">Cuenta de la Star Stream</span></div>
                 <div class="stat-line">Monedas Disponibles: <span id="coinDisplay">100</span> 🪙</div>
             </div>
 
-            <!-- Pestaña 5: Bolsa -->
             <div class="tab-content" id="bagBox">
                 <div class="stat-line"><span class="highlight">Bolsa Dokkaebi</span></div>
                 <p>> Interfaz de intercambio lista.</p>
@@ -101,13 +96,11 @@
                 </div>
             </div>
 
-            <!-- Pestaña 6: Mapa -->
             <div class="tab-content" id="mapBox">
                 <div class="stat-line"><span class="highlight">Coordenadas del Escenario</span></div>
                 <div class="stat-line">Ubicación: Seúl, Estación de Oksu</div>
             </div>
 
-            <!-- Pestaña 7: Midtryst -->
             <div class="tab-content" id="midtrystBox">
                 <div class="locked-text" id="midtrystLockedState">
                     <p>[El acceso a esta frecuencia requiere la compra del 'Midtryst' en la Bolsa Dokkaebi]</p>
@@ -118,7 +111,6 @@
             </div>
         </div>
 
-        <!-- Entrada de Texto -->
         <div class="action-container" id="actionContainer">
             <div class="input-wrapper">
                 <input type="text" id="userInput" placeholder="¿Qué haces?" onkeypress="checkEnter(event)">
@@ -126,7 +118,6 @@
             <button class="send-icon-btn" onclick="sendMessage()">➔</button>
         </div>
 
-        <!-- Menú de Iconos Inferior -->
         <div class="bottom-nav">
             <button class="nav-item active" id="nav-chat" onclick="switchTab('chatBox', 'nav-chat', 'HISTORIAL DE ROL')">
                 <span class="icon">💬</span><span>Rol</span>
@@ -152,6 +143,24 @@
         </div>
     </div>
 
-    <script src="./js/main.js?v=20261108">
+    <!-- Script de Respaldo Inmediato para los dados -->
+    <script>
+        function rollBaseStatsDirect() {
+            statStr = Math.floor(Math.random() * 11) + 5;
+            statVit = Math.floor(Math.random() * 11) + 5;
+            statAgi = Math.floor(Math.random() * 11) + 5;
+            statMag = Math.floor(Math.random() * 11) + 5;
+            statsRolled = true;
+
+            document.getElementById('rollStr').innerText = statStr;
+            document.getElementById('rollVit').innerText = statVit;
+            document.getElementById('rollAgi').innerText = statAgi;
+            document.getElementById('rollMag').innerText = statMag;
+            
+            alert("[El Sistema de la Star Stream ha calculado tus estadísticas base con éxito.]");
+        }
+    </script>
+
+    <script src="./js/main.js?v=final99"></script>
 </body>
 </html>
