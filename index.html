@@ -143,24 +143,25 @@
         </div>
     </div>
 
-    <!-- Script de Respaldo Inmediato para los dados -->
+        <!-- Script de Respaldo Inmediato para los dados -->
     <script>
         function rollBaseStatsDirect() {
-            statStr = Math.floor(Math.random() * 11) + 5;
-            statVit = Math.floor(Math.random() * 11) + 5;
-            statAgi = Math.floor(Math.random() * 11) + 5;
-            statMag = Math.floor(Math.random() * 11) + 5;
-            statsRolled = true;
+            window.statStr = Math.floor(Math.random() * 11) + 5;
+            window.statVit = Math.floor(Math.random() * 11) + 5;
+            window.statAgi = Math.floor(Math.random() * 11) + 5;
+            window.statMag = Math.floor(Math.random() * 11) + 5;
+            window.statsRolled = true;
 
-            document.getElementById('rollStr').innerText = statStr;
-            document.getElementById('rollVit').innerText = statVit;
-            document.getElementById('rollAgi').innerText = statAgi;
-            document.getElementById('rollMag').innerText = statMag;
+            document.getElementById('rollStr').innerText = window.statStr;
+            document.getElementById('rollVit').innerText = window.statVit;
+            document.getElementById('rollAgi').innerText = window.statAgi;
+            document.getElementById('rollMag').innerText = window.statMag;
             
             alert("[El Sistema de la Star Stream ha calculado tus estadísticas base con éxito.]");
         }
     </script>
 
-    <script src="./js/main.js?v=final99"></script>
+    <!-- Forzamos una nueva lectura limpia -->
+    <script src="./js/main.js?v=orv_fix_stats"></script>
 </body>
 </html>
