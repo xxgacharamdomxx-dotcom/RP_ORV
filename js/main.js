@@ -45,6 +45,16 @@ function switchTab(tabId, buttonId, headerText) {
     mainContent.scrollTop = mainContent.scrollHeight;
 }
 
+function startNewGame() {
+    chatBox.innerHTML = `
+        <div class="message"><span class="system-alert">[El Sistema te da la bienvenida al escenario.]</span></div>
+        <div class="message">Camináis hacia la salida del jardín botánico, con los sentidos alerta a cualquier crujido de hojas o voz lejana que pueda delataros.</div>
+    `;
+    startScreen.style.display = 'none';
+    appContainer.style.display = 'flex';
+    switchTab('chatBox', 'nav-chat', 'HISTORIAL DE ROL');
+}
+
 function sendMessage() {
     const input = document.getElementById('userInput');
     if (input.value.trim() !== "") {
@@ -59,7 +69,10 @@ function sendMessage() {
         }
         
         input.value = "";
+        // Corrección para evitar bloqueos en celulares:
         mainContent.scrollTop = mainContent.scrollHeight;
+    }
+}
     }
 }
 
