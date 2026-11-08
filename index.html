@@ -18,6 +18,27 @@
             <button class="neon-btn" onclick="startNewGame()">comenzar..?</button>
         </div>
     </div>
+    <!-- PANTALLA INTERMEDIA: Creación de Personaje -->
+    <div class="start-screen" id="creationScreen" style="display: none;">
+        <div class="orv-box">
+            <p class="orv-text">[Ingresa los datos de la Encarnación]</p>
+            <div style="margin-top: 20px; text-align: left; display: flex; flex-direction: column; gap: 15px;">
+                <div>
+                    <label style="display:block; font-size:12px; color:#00d2ff; margin-bottom:5px;">NOMBRE:</label>
+                    <input type="text" id="charName" placeholder="Ej. Kim Dokja" style="width:90%; background:#161b22; border:1px solid #30363d; padding:8px; color:#fff; font-family:inherit;">
+                </div>
+                <div>
+                    <label style="display:block; font-size:12px; color:#00d2ff; margin-bottom:5px;">EDAD:</label>
+                    <input type="text" id="charAge" placeholder="Ej. 28" style="width:90%; background:#161b22; border:1px solid #30363d; padding:8px; color:#fff; font-family:inherit;">
+                </div>
+                <div>
+                    <label style="display:block; font-size:12px; color:#00d2ff; margin-bottom:5px;">APARIENCIA / DESCRIPCIÓN:</label>
+                    <input type="text" id="charDesc" placeholder="Ej. Cabello negro, ojos oscuros, abrigo blanco..." style="width:90%; background:#161b22; border:1px solid #30363d; padding:8px; color:#fff; font-family:inherit;">
+                </div>
+            </div>
+        </div>
+        <button class="neon-btn" onclick="saveCharacterAndStart()">registrar encarnación</button>
+    </div>
 
     <!-- Interfaz Estilo WorldOS Completa -->
     <div class="app-container" id="appContainer">
@@ -33,10 +54,12 @@
                 <div class="message"><span class="constellation">[La constelación 'Dragón Negro del Abismo de Fuego' devora con la mirada tu historial.]</span></div>
             </div>
 
-            <!-- PESTAÑA 3: Perfil -->
+            <!-- PESTAÑA 3: Perfil (Actualizada) -->
             <div class="tab-content" id="profileBox">
                 <div class="stat-line"><span class="highlight">Ventana de Estado</span></div>
-                <div class="stat-line">Nombre: [Encarnación Sin Registrar]</div>
+                <div class="stat-line">Nombre: <span id="profileName">[Sin Registrar]</span></div>
+                <div class="stat-line">Edad: <span id="profileAge">--</span></div>
+                <div class="stat-line">Apariencia: <span id="profileDesc">--</span></div>
                 <div class="stat-line">Modificador: [Ninguno]</div>
                 <div class="stat-line">Atributo Privado: [Lector de Historias]</div>
             </div>
