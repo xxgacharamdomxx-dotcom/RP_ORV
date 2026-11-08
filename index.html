@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORV - Sistema de Rol</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Pantalla de Inicio Oscura */
+        .start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .orv-box {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ffffff;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            width: 80%;
+        }
+
+        .orv-text {
+            font-size: 18px;
+            line-height: 1.6;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 250px;
+        }
+
+        /* Botón Neón Cibernético */
+        .neon-btn {
+            background: transparent;
+            border: 2px solid #00d2ff;
+            color: #00d2ff;
+            padding: 12px 24px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: lowercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3), inset 0 0 10px rgba(0, 210, 255, 0.2);
+        }
+
+        .neon-btn:hover {
+            background: #00d2ff;
+            color: #000000;
+            box-shadow: 0 0 20px #00d2ff, 0 0 40px #00d2ff;
+        }
+
+        /* Botón de reanudar (Oculto por defecto) */
+        .resume-btn {
+            display: none;
+            border-color: #a855f7;
+            color: #a855f7;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3), inset 0 0 10px rgba(168, 85, 247, 0.2);
+        }
+
+        .resume-btn:hover {
+            background: #a855f7;
+            color: #000000;
+            box-shadow: 0 0 20px #a855f7, 0 0 40px #a855f7;
+        }
+
+        /* Ventana del Sistema de Rol (Oculta al inicio) */
+        .system-window {
+            display: none;
+            background: rgba(10, 25, 47, 0.85);
+            border: 2px solid #00d2ff;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+            overflow: hidden;
+        }
+
+        .system-header {
+            background: #00d2ff;
+            color: #050a12;
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .system-content {
+            padding: 20px;
+            height: 350px;
+            overflow-y: auto;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.3);
+        }
+
+        .message {
+            margin-bottom: 12px;
+            line-height: 1.4;
+            color: #e0f2fe;
+        }
+
+        .constellation { color: #f59e0b; font-weight: bold; }
+        .system-alert { color: #00d2ff; font-weight: bold; }
+
+        .action-input {
+            display: flex;
+            background: rgba(5, 10, 18, 0.6);
+            padding: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .send-btn {
+            background: #00d2ff;
+            border: none;
+            color: #050a12;
+            padding: 8px 16px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pantalla de Inicio -->
+    <div class="start-screen" id="startScreen">
+        <div class="orv-box">
+            <p class="orv-text">[Las historias viven, y uno vive por las historias]</p>
+        </div>
+        <div class="menu-buttons">
+            <button class="neon-btn" onclick="startNewGame()">comenzar..?</button>
+            <button class="neon-btn resume-btn" id="resumeBtn" onclick="resumeGame()">reanudar historia</button>
+        </div>
+    </div>
+
+    <!-- Interfaz de Rol -->
+    <div class="system-window" id="systemWindow">
+        <div class="system-header">[El canal #BI-7623 está activo]</div>
+        <div class="system-content" id="chatBox"></div>
+        <div class="action-input">
+            <input type="text" id="userInput" placeholder="Escribe tu acción o mensaje de Constelación..." onkeypress="checkEnter(event)">
+            <button class="send-btn" onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+<script>
+    const startScreen = document.getElementById('startScreen');
+    const systemWindow = document.getElementById('systemWindow');
+    const chatBox = document.getElementById('chatBox');
+    const resumeBtn = document.getElementById('resumeBtn');
+
+    // Al cargar la página, comprueba si hay un chat previo guardado
+    window.onload = function() {
+        const savedChat = localStorage.getItem('orv_chat_history');
+        if (savedChat && savedChat.trim() !== "") {
+            resumeBtn.style.display = 'block';
+        }
+    }
+
+    function startNewGame() {
+        // Limpia el historial previo si decide comenzar de cero
+        localStorage.removeItem('orv_chat_history');
+        chatBox.innerHTML = `
+            <div class="message"><span class="system-alert">[El Sistema te da la bienvenida al escenario.]</span></div>
+            <div class="message"><span class="constellation">[La constelación 'Estratega Supremo' está observando tus movimientos.]</span></div>
+        `;
+        saveHistory();
+        showChat();
+    }
+
+    function resumeGame() {
+        const savedChat = localStorage.getItem('orv_chat_history');
+        chatBox.innerHTML = savedChat;
+        showChat();
+    }
+
+    function showChat() {
+        startScreen.style.display = 'none';
+        systemWindow.style.display = 'block';
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('userInput');
+        if (input.value.trim() !== "") {
+            const newMessage = document.createElement('div');
+            newMessage.className = 'message';
+            newMessage.innerHTML = `> ${input.value}`;
+            chatBox.appendChild(newMessage);
+            input.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+            saveHistory();
+        }
+    }
+
+    function checkEnter(event) {
+        if (event.key === 'Enter') { sendMessage(); }
+    }
+
+    function saveHistory() {
+        localStorage.setItem('orv_chat_history', chatBox.innerHTML);
+    }
+</script>
+
+</body>
+</html>
