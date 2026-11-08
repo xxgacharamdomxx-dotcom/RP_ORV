@@ -74,19 +74,6 @@
             box-shadow: 0 0 20px #00d2ff, 0 0 40px #00d2ff;
         }
 
-        .resume-btn {
-            display: none;
-            border-color: #a855f7;
-            color: #a855f7;
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3), inset 0 0 10px rgba(168, 85, 247, 0.2);
-        }
-
-        .resume-btn:hover {
-            background: #a855f7;
-            color: #000000;
-            box-shadow: 0 0 20px #a855f7, 0 0 40px #a855f7;
-        }
-
         /* Ventana del Sistema de Rol */
         .system-window {
             display: none;
@@ -119,7 +106,7 @@
         }
 
         #chatBox {
-            display: block; /* Se muestra por defecto */
+            display: block;
         }
 
         .message {
@@ -160,7 +147,7 @@
             border-radius: 4px;
         }
 
-        /* Barra de Navegación Inferior */
+        /* Barra de Opciones Inferior */
         .system-nav {
             display: flex;
             flex-wrap: wrap;
@@ -193,7 +180,6 @@
             font-weight: bold;
         }
         
-        /* Estilos de datos internos */
         .stat-line { margin-bottom: 10px; }
         .highlight { color: #00d2ff; }
     </style>
@@ -207,7 +193,6 @@
         </div>
         <div class="menu-buttons">
             <button class="neon-btn" onclick="startNewGame()">comenzar..?</button>
-            <button class="neon-btn resume-btn" id="resumeBtn" onclick="resumeGame()">reanudar historia</button>
         </div>
     </div>
 
@@ -230,7 +215,7 @@
         <!-- PESTAÑA: Monedero -->
         <div class="tab-content" id="walletBox">
             <div class="stat-line"><span class="highlight">Balance de Monedas de la Star Stream</span></div>
-            <div class="stat-line">Monedas Actuales: 100 🪙</div>
+            <div class="stat-line">Monedas Actuales: 100</div>
             <div class="stat-line" style="color: #f59e0b;">[Las constelaciones evalúan tu valor en el escenario]</div>
         </div>
 
@@ -249,7 +234,7 @@
             <div class="stat-line">Escenario Principal Activo: Escenario 1 - Prueba de Valor</div>
         </div>
 
-        <!-- Barra de Entrada (Solo visible si estás en el historial) -->
+        <!-- Barra de Entrada -->
         <div class="action-input" id="inputContainer">
             <input type="text" id="userInput" placeholder="Escribe tu acción o mensaje..." onkeypress="checkEnter(event)">
             <button class="send-btn" onclick="sendMessage()">Enviar</button>
@@ -269,49 +254,14 @@
     const startScreen = document.getElementById('startScreen');
     const systemWindow = document.getElementById('systemWindow');
     const chatBox = document.getElementById('chatBox');
-    const resumeBtn = document.getElementById('resumeBtn');
     const systemHeader = document.getElementById('systemHeader');
     const inputContainer = document.getElementById('inputContainer');
 
-    window.onload = function() {
-        const savedChat = localStorage.getItem('orv_chat_history');
-        if (savedChat && savedChat.trim() !== "") {
-            resumeBtn.style.display = 'block';
-        }
-    }
-
     function startNewGame() {
-        localStorage.removeItem('orv_chat_history');
-        chatBox.innerHTML = `
-            <div class="message"><span class="system-alert">[El Sistema te da la bienvenida al escenario.]</span></div>
-<script>
-    const startScreen = document.getElementById('startScreen');
-    const systemWindow = document.getElementById('systemWindow');
-    const chatBox = document.getElementById('chatBox');
-    const resumeBtn = document.getElementById('resumeBtn');
-    const systemHeader = document.getElementById('systemHeader');
-    const inputContainer = document.getElementById('inputContainer');
-
-    window.onload = function() {
-        const savedChat = localStorage.getItem('orv_chat_history');
-        if (savedChat && savedChat.trim() !== "") {
-            resumeBtn.style.display = 'block';
-        }
-    }
-
-    function startNewGame() {
-        localStorage.removeItem('orv_chat_history');
         chatBox.innerHTML = `
             <div class="message"><span class="system-alert">[El Sistema te da la bienvenida al escenario.]</span></div>
             <div class="message"><span class="constellation">[La constelación 'Estratega Supremo' está observando tus movimientos.]</span></div>
         `;
-        saveHistory();
-        showChat();
-    }
-
-    function resumeGame() {
-        const savedChat = localStorage.getItem('orv_chat_history');
-        chatBox.innerHTML = savedChat;
         showChat();
     }
 
@@ -321,24 +271,18 @@
         switchTab('chatBox', 'btn-chat', '[El canal #BI-7623 está activo]');
     }
 
-    // Cambiar de Pestaña de Forma Fluida
     function switchTab(tabId, buttonId, headerText) {
-        // Ocultar todos los contenidos de pestañas
         const contents = document.querySelectorAll('.tab-content');
         contents.forEach(content => content.style.display = 'none');
 
-        // Desactivar todos los botones de navegación
         const tabs = document.querySelectorAll('.nav-tab');
         tabs.forEach(tab => tab.classList.remove('active'));
 
-        // Mostrar pestaña seleccionada y activar su botón
         document.getElementById(tabId).style.display = 'block';
         document.getElementById(buttonId).classList.add('active');
 
-        // Actualizar el título del header superior
         systemHeader.innerText = headerText;
 
-        // Ocultar o mostrar la barra de entrada de texto según la pestaña
         if (tabId === 'chatBox') {
             inputContainer.style.display = 'flex';
             chatBox.scrollTop = chatBox.scrollHeight;
@@ -356,16 +300,11 @@
             chatBox.appendChild(newMessage);
             input.value = "";
             chatBox.scrollTop = chatBox.scrollHeight;
-            saveHistory();
         }
     }
 
     function checkEnter(event) {
         if (event.key === 'Enter') { sendMessage(); }
-    }
-
-    function saveHistory() {
-        localStorage.setItem('orv_chat_history', chatBox.innerHTML);
     }
 </script>
 
