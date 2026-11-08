@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORV - Sistema de Rol</title>
-    <!-- Ruta relativa corregida para la hoja de estilos -->
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
 
-    <!-- Pantalla de Inicio -->
-    <!-- PANTALLA INTERMEDIA: Creación de Personaje con Dados -->
+    <!-- PANTALLA 1: Inicio -->
+    <div class="start-screen" id="startScreen">
+        <div class="orv-box">
+            <p class="orv-text">[Las historias viven, y uno vive por las historias]</p>
+        </div>
+        <div class="menu-buttons">
+            <button class="neon-btn" onclick="startNewGame()">comenzar..?</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA 2: Creación de Personaje -->
     <div class="start-screen" id="creationScreen" style="display: none;">
         <div class="orv-box">
             <p class="orv-text">[Ingresa los datos de la Encarnación]</p>
@@ -28,7 +36,6 @@
                     <input type="text" id="charDesc" placeholder="Ej. Abrigo blanco..." style="width:90%; background:#161b22; border:1px solid #30363d; padding:6px; color:#fff; font-family:inherit;">
                 </div>
                 
-                <!-- Apartado de Estadísticas con Sistema de Dados -->
                 <div style="border-top: 1px solid rgba(0, 210, 255, 0.2); padding-top: 10px; margin-top: 5px;">
                     <label style="display:block; font-size:11px; color:#00d2ff; margin-bottom:8px;">ESTADÍSTICAS BASE:</label>
                     <div style="display: flex; align-items: center; gap: 15px;">
@@ -45,21 +52,22 @@
         </div>
         <button class="neon-btn" onclick="saveCharacterAndStart()">registrar encarnación</button>
     </div>
-    <!-- Interfaz Estilo WorldOS Completa -->
+
+    <!-- PANTALLA 3: Interfaz Principal WorldOS -->
     <div class="app-container" id="appContainer">
         <div class="app-header" id="appHeader">HISTORIAL DE ROL</div>
         
         <div class="main-content" id="mainContent">
-            <!-- PESTAÑA 1: Historial de Rol -->
+            <!-- Pestaña 1: Rol -->
             <div class="tab-content" id="chatBox"></div>
 
-            <!-- PESTAÑA 2: Reacción de Constelaciones -->
+            <!-- Pestaña 2: Constelaciones -->
             <div class="tab-content" id="constellationsBox">
                 <div class="message"><span class="constellation">[La constelación 'Prisionero de la Diadema Dorada' está rascándose la cabeza.]</span></div>
                 <div class="message"><span class="constellation">[La constelación 'Dragón Negro del Abismo de Fuego' devora con la mirada tu historial.]</span></div>
             </div>
 
-                        <!-- PESTAÑA 3: Perfil (Con Estadísticas) -->
+            <!-- Pestaña 3: Perfil -->
             <div class="tab-content" id="profileBox">
                 <div class="stat-line"><span class="highlight">Ventana de Estado</span></div>
                 <div class="stat-line">Nombre: <span id="profileName">[Sin Registrar]</span></div>
@@ -77,13 +85,13 @@
                 <div class="stat-line">Poder Mágico: <span id="profileMag" style="color: #f59e0b;">--</span></div>
             </div>
 
-            <!-- PESTAÑA 4: Monedero -->
+            <!-- Pestaña 4: Monedero -->
             <div class="tab-content" id="walletBox">
                 <div class="stat-line"><span class="highlight">Cuenta de la Star Stream</span></div>
                 <div class="stat-line">Monedas Disponibles: <span id="coinDisplay">100</span> 🪙</div>
             </div>
 
-            <!-- PESTAÑA 5: Bolsa Dokkaebi -->
+            <!-- Pestaña 5: Bolsa -->
             <div class="tab-content" id="bagBox">
                 <div class="stat-line"><span class="highlight">Bolsa Dokkaebi</span></div>
                 <p>> Interfaz de intercambio lista.</p>
@@ -93,13 +101,13 @@
                 </div>
             </div>
 
-            <!-- PESTAÑA 6: Mapa -->
+            <!-- Pestaña 6: Mapa -->
             <div class="tab-content" id="mapBox">
                 <div class="stat-line"><span class="highlight">Coordenadas del Escenario</span></div>
                 <div class="stat-line">Ubicación: Seúl, Estación de Oksu</div>
             </div>
 
-            <!-- PESTAÑA 7: Canal Midtryst (Bloqueado) -->
+            <!-- Pestaña 7: Midtryst -->
             <div class="tab-content" id="midtrystBox">
                 <div class="locked-text" id="midtrystLockedState">
                     <p>[El acceso a esta frecuencia requiere la compra del 'Midtryst' en la Bolsa Dokkaebi]</p>
@@ -110,7 +118,7 @@
             </div>
         </div>
 
-        <!-- Barra de Entrada de Texto -->
+        <!-- Entrada de Texto -->
         <div class="action-container" id="actionContainer">
             <div class="input-wrapper">
                 <input type="text" id="userInput" placeholder="¿Qué haces?" onkeypress="checkEnter(event)">
@@ -118,7 +126,7 @@
             <button class="send-icon-btn" onclick="sendMessage()">➔</button>
         </div>
 
-        <!-- Barra de Navegación de Iconos Inferior -->
+        <!-- Menú de Iconos Inferior -->
         <div class="bottom-nav">
             <button class="nav-item active" id="nav-chat" onclick="switchTab('chatBox', 'nav-chat', 'HISTORIAL DE ROL')">
                 <span class="icon">💬</span><span>Rol</span>
@@ -144,7 +152,6 @@
         </div>
     </div>
 
-    <!-- Ruta relativa corregida para la lógica de programación -->
     <script src="./js/main.js"></script>
 </body>
 </html>
