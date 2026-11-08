@@ -1,1 +1,220 @@
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 
+/* Pantalla de Inicio Oscura */
+.start-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.orv-box {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ffffff;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    width: 80%;
+}
+
+.orv-text {
+    font-size: 18px;
+    line-height: 1.6;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.neon-btn {
+    background: transparent;
+    border: 2px solid #00d2ff;
+    color: #00d2ff;
+    padding: 12px 24px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: lowercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.3), inset 0 0 10px rgba(0, 210, 255, 0.2);
+}
+
+.neon-btn:hover {
+    background: #00d2ff;
+    color: #000000;
+    box-shadow: 0 0 20px #00d2ff, 0 0 40px #00d2ff;
+}
+
+/* Contenedor Principal (Estilo Pantalla Completa App) */
+.app-container {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    height: 100vh;
+    background: #0d1117;
+    position: relative;
+}
+
+/* Cabecera superior */
+.app-header {
+    background: #161b22;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #21262d;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+
+/* Área de Contenido Principal (Expandida) */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    padding-bottom: 120px; /* Espacio prudente para evitar superposiciones */
+}
+
+.tab-content {
+    display: none;
+}
+
+#chatBox {
+    display: block;
+}
+
+.message {
+    margin-bottom: 16px;
+    line-height: 1.5;
+    font-size: 15px;
+    color: #c9d1d9;
+}
+
+.constellation { color: #f59e0b; font-weight: bold; }
+.system-alert { color: #00d2ff; font-weight: bold; }
+.locked-text { color: #f43f5e; text-align: center; margin-top: 50px; }
+
+/* Tienda */
+.shop-item {
+    background: #161b22;
+    border: 1px solid #30363d;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buy-btn {
+    background: #f59e0b;
+    border: none;
+    color: #000000;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.buy-btn:hover {
+    background: #d97706;
+}
+
+/* Barra de Entrada Inferior */
+.action-container {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: #0d1117;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #21262d;
+}
+
+.input-wrapper {
+    flex: 1;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 20px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+input[type="text"] {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+}
+
+.send-icon-btn {
+    background: transparent;
+    border: none;
+    color: #00d2ff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+/* Barra de Navegación de Iconos Inferior */
+.bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #161b22;
+    display: flex;
+    border-top: 1px solid #21262d;
+}
+
+.nav-item {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #8b949e;
+    font-family: inherit;
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 4px;
+    text-transform: uppercase;
+}
+
+.nav-item .icon {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: #00d2ff;
+}
+
+.stat-line { margin-bottom: 12px; font-size: 14px; }
+.highlight { color: #00d2ff; font-weight: bold; }
