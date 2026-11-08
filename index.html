@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORV - Sistema de Rol</title>
     <link rel="stylesheet" href="./css/styles.css">
+    <style>
+        .up-btn {
+            background: #00d2ff;
+            border: none;
+            color: #000000;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 2px 8px;
+            margin-left: 10px;
+            font-family: inherit;
+            font-size: 12px;
+        }
+        .up-btn:hover { 
+            background: #00b4db; 
+        }
+        .typing-indicator {
+            color: #8b949e;
+            font-style: italic;
+            margin-top: 10px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -58,13 +83,14 @@
         <div class="app-header" id="appHeader">HISTORIAL DE ROL</div>
         
         <div class="main-content" id="mainContent">
+            <!-- Pestaña 1: Rol -->
             <div class="tab-content" id="chatBox"></div>
+            <div class="typing-indicator" id="aiTyping">[El canal de la Star Stream está procesando tu historia...]</div>
 
-            <div class="tab-content" id="constellationsBox">
-                <div class="message"><span class="constellation">[La constelación 'Prisionero de la Diadema Dorada' está rascándose la cabeza.]</span></div>
-                <div class="message"><span class="constellation">[La constelación 'Dragón Negro del Abismo de Fuego' devora con la mirada tu historial.]</span></div>
-            </div>
+            <!-- Pestaña 2: Constelaciones -->
+            <div class="tab-content" id="constellationsBox"></div>
 
+            <!-- Pestaña 3: Perfil -->
             <div class="tab-content" id="profileBox">
                 <div class="stat-line"><span class="highlight">Ventana de Estado</span></div>
                 <div class="stat-line">Nombre: <span id="profileName">[Sin Registrar]</span></div>
@@ -74,19 +100,21 @@
                 <div class="stat-line">Atributo Privado: [Lector de Historias]</div>
                 
                 <div class="stat-line" style="border-top: 1px solid rgba(0, 210, 255, 0.2); margin-top: 15px; padding-top: 15px;">
-                    <span class="highlight">Estadísticas de Combate</span>
+                    <span class="highlight">Estadísticas de Combate (Costo: 10 Monedas por nivel)</span>
                 </div>
-                <div class="stat-line">Fuerza: <span id="profileStr" style="color: #f59e0b;">--</span></div>
-                <div class="stat-line">Resistencia: <span id="profileVit" style="color: #f59e0b;">--</span></div>
-                <div class="stat-line">Agilidad: <span id="profileAgi" style="color: #f59e0b;">--</span></div>
-                <div class="stat-line">Poder Mágico: <span id="profileMag" style="color: #f59e0b;">--</span></div>
+                <div class="stat-line">Fuerza: <span id="profileStr" style="color: #f59e0b;">--</span> <button class="up-btn" onclick="upgradeStat('Str')">+</button></div>
+                <div class="stat-line">Resistencia: <span id="profileVit" style="color: #f59e0b;">--</span> <button class="up-btn" onclick="upgradeStat('Vit')">+</button></div>
+                <div class="stat-line">Agilidad: <span id="profileAgi" style="color: #f59e0b;">--</span> <button class="up-btn" onclick="upgradeStat('Agi')">+</button></div>
+                <div class="stat-line">Poder Mágico: <span id="profileMag" style="color: #f59e0b;">--</span> <button class="up-btn" onclick="upgradeStat('Mag')">+</button></div>
             </div>
 
+            <!-- Pestaña 4: Monedero -->
             <div class="tab-content" id="walletBox">
                 <div class="stat-line"><span class="highlight">Cuenta de la Star Stream</span></div>
                 <div class="stat-line">Monedas Disponibles: <span id="coinDisplay">100</span> 🪙</div>
             </div>
 
+            <!-- Pestaña 5: Bolsa -->
             <div class="tab-content" id="bagBox">
                 <div class="stat-line"><span class="highlight">Bolsa Dokkaebi</span></div>
                 <p>> Interfaz de intercambio lista.</p>
@@ -96,11 +124,13 @@
                 </div>
             </div>
 
+            <!-- Pestaña 6: Mapa -->
             <div class="tab-content" id="mapBox">
                 <div class="stat-line"><span class="highlight">Coordenadas del Escenario</span></div>
                 <div class="stat-line">Ubicación: Seúl, Estación de Oksu</div>
             </div>
 
+            <!-- Pestaña 7: Midtryst -->
             <div class="tab-content" id="midtrystBox">
                 <div class="locked-text" id="midtrystLockedState">
                     <p>[El acceso a esta frecuencia requiere la compra del 'Midtryst' en la Bolsa Dokkaebi]</p>
@@ -111,6 +141,7 @@
             </div>
         </div>
 
+        <!-- Entrada de Texto -->
         <div class="action-container" id="actionContainer">
             <div class="input-wrapper">
                 <input type="text" id="userInput" placeholder="¿Qué haces?" onkeypress="checkEnter(event)">
@@ -118,6 +149,7 @@
             <button class="send-icon-btn" onclick="sendMessage()">➔</button>
         </div>
 
+        <!-- Menú de Iconos Inferior -->
         <div class="bottom-nav">
             <button class="nav-item active" id="nav-chat" onclick="switchTab('chatBox', 'nav-chat', 'HISTORIAL DE ROL')">
                 <span class="icon">💬</span><span>Rol</span>
@@ -143,7 +175,7 @@
         </div>
     </div>
 
-        <!-- Script de Respaldo Inmediato para los dados -->
+    <!-- Script de Respaldo Inmediato para los dados -->
     <script>
         function rollBaseStatsDirect() {
             window.statStr = Math.floor(Math.random() * 11) + 5;
@@ -161,7 +193,7 @@
         }
     </script>
 
-    <!-- Forzamos una nueva lectura limpia -->
-    <script src="./js/main.js?v=orv_fix_stats"></script>
+    <!-- Vinculación del archivo de lógica externa con parámetro para limpiar la caché -->
+    <script src="./js/main.js?v=orv_ai_system"></script>
 </body>
 </html>
