@@ -73,7 +73,7 @@ function buyMidtryst() {
         document.getElementById('midtrystLockedState').style.display = 'none';
         document.getElementById('midtrystActiveContent').style.display = 'block';
         document.getElementById('nav-midtryst').querySelector('.icon').innerText = '🔓';
-        document.getElementById('midtrystShopItem').innerHTML = "[Objeto 'Midtryst' Adquirido]";
+        document.getElementById('midtrystShopItem').innerHTML = "<span style='color: #10b981;'>[Objeto 'Midtryst' Adquirido]</span>";
         alert("[Has adquirido el 'Midtryst'. La frecuencia de transmisión privada ha sido abierta.]");
     } else {
         alert("[Monedas insuficientes para realizar el intercambio con el Dokkaebi.]");
