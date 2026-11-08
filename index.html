@@ -4,185 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORV - Sistema de Rol</title>
-    <style>
-        body {
-            background-color: #000000;
-            color: #ffffff;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Pantalla de Inicio Oscura */
-        .start-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .orv-box {
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid #ffffff;
-            padding: 30px;
-            margin-bottom: 40px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-            width: 80%;
-        }
-
-        .orv-text {
-            font-size: 18px;
-            line-height: 1.6;
-            letter-spacing: 1px;
-            margin: 0;
-        }
-
-        .menu-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 250px;
-        }
-
-        /* Botón Neón Cibernético */
-        .neon-btn {
-            background: transparent;
-            border: 2px solid #00d2ff;
-            color: #00d2ff;
-            padding: 12px 24px;
-            font-family: inherit;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: lowercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3), inset 0 0 10px rgba(0, 210, 255, 0.2);
-        }
-
-        .neon-btn:hover {
-            background: #00d2ff;
-            color: #000000;
-            box-shadow: 0 0 20px #00d2ff, 0 0 40px #00d2ff;
-        }
-
-        /* Ventana del Sistema de Rol */
-        .system-window {
-            display: none;
-            background: rgba(10, 25, 47, 0.85);
-            border: 2px solid #00d2ff;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 600px;
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-            overflow: hidden;
-        }
-
-        .system-header {
-            background: #00d2ff;
-            color: #050a12;
-            padding: 10px;
-            font-weight: bold;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Contenedores de Pantallas de Contenido */
-        .tab-content {
-            padding: 20px;
-            height: 350px;
-            overflow-y: auto;
-            border-bottom: 1px solid rgba(0, 210, 255, 0.3);
-            display: none;
-        }
-
-        #chatBox {
-            display: block;
-        }
-
-        .message {
-            margin-bottom: 12px;
-            line-height: 1.4;
-            color: #e0f2fe;
-        }
-
-        .constellation { color: #f59e0b; font-weight: bold; }
-        .system-alert { color: #00d2ff; font-weight: bold; }
-
-        /* Sección de Entrada de Texto */
-        .action-input {
-            display: flex;
-            background: rgba(5, 10, 18, 0.6);
-            padding: 10px;
-            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
-        }
-
-        input[type="text"] {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-family: inherit;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .send-btn {
-            background: #00d2ff;
-            border: none;
-            color: #050a12;
-            padding: 8px 16px;
-            font-family: inherit;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        /* Barra de Opciones Inferior */
-        .system-nav {
-            display: flex;
-            flex-wrap: wrap;
-            background: rgba(10, 25, 47, 0.95);
-        }
-
-        .nav-tab {
-            flex: 1;
-            min-width: 100px;
-            background: transparent;
-            border: none;
-            border-right: 1px solid rgba(0, 210, 255, 0.2);
-            color: #8892b0;
-            padding: 12px 5px;
-            font-family: inherit;
-            font-size: 11px;
-            cursor: pointer;
-            text-align: center;
-            text-transform: uppercase;
-            transition: all 0.2s ease;
-        }
-
-        .nav-tab:last-child {
-            border-right: none;
-        }
-
-        .nav-tab:hover, .nav-tab.active {
-            color: #00d2ff;
-            background: rgba(0, 210, 255, 0.1);
-            font-weight: bold;
-        }
-        
-        .stat-line { margin-bottom: 10px; }
-        .highlight { color: #00d2ff; }
-    </style>
+    <!-- Vinculación de los estilos externos -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -196,117 +19,96 @@
         </div>
     </div>
 
-    <!-- Interfaz de Rol Completa -->
-    <div class="system-window" id="systemWindow">
-        <div class="system-header" id="systemHeader">[El canal #BI-7623 está activo]</div>
+    <!-- Interfaz Estilo WorldOS Completa -->
+    <div class="app-container" id="appContainer">
+        <div class="app-header" id="appHeader">HISTORIAL DE ROL</div>
         
-        <!-- PESTAÑA: Historial de Rol -->
-        <div class="tab-content" id="chatBox"></div>
+        <div class="main-content" id="mainContent">
+            <!-- PESTAÑA 1: Historial de Rol -->
+            <div class="tab-content" id="chatBox"></div>
 
-        <!-- PESTAÑA: Perfil -->
-        <div class="tab-content" id="profileBox">
-            <div class="stat-line"><span class="highlight">Información de la Ficha</span></div>
-            <div class="stat-line">Nombre: [Encarnación Sin Registrar]</div>
-            <div class="stat-line">Patrocinador Fijo: [Ninguno]</div>
-            <div class="stat-line">Atributo Privado: [Lector de Historias]</div>
-            <div class="stat-line">Estigma: [Ninguno]</div>
+            <!-- PESTAÑA 2: Reacción de Constelaciones -->
+            <div class="tab-content" id="constellationsBox">
+                <div class="message"><span class="constellation">[La constelación 'Prisionero de la Diadema Dorada' está rascándose la cabeza.]</span></div>
+                <div class="message"><span class="constellation">[La constelación 'Dragón Negro del Abismo de Fuego' devora con la mirada tu historial.]</span></div>
+            </div>
+
+            <!-- PESTAÑA 3: Perfil -->
+            <div class="tab-content" id="profileBox">
+                <div class="stat-line"><span class="highlight">Ventana de Estado</span></div>
+                <div class="stat-line">Nombre: [Encarnación Sin Registrar]</div>
+                <div class="stat-line">Modificador: [Ninguno]</div>
+                <div class="stat-line">Atributo Privado: [Lector de Historias]</div>
+            </div>
+
+            <!-- PESTAÑA 4: Monedero -->
+            <div class="tab-content" id="walletBox">
+                <div class="stat-line"><span class="highlight">Cuenta de la Star Stream</span></div>
+                <div class="stat-line">Monedas Disponibles: <span id="coinDisplay">100</span> 🪙</div>
+            </div>
+
+            <!-- PESTAÑA 5: Bolsa Dokkaebi -->
+            <div class="tab-content" id="bagBox">
+                <div class="stat-line"><span class="highlight">Bolsa Dokkaebi</span></div>
+                <p>> Interfaz de intercambio lista.</p>
+                <div class="shop-item" id="midtrystShopItem">
+                    <span>Transmisor 'Midtryst' (Frecuencia Privada)</span>
+                    <button class="buy-btn" onclick="buyMidtryst()">Comprar (50 Monedas)</button>
+                </div>
+            </div>
+
+            <!-- PESTAÑA 6: Mapa -->
+            <div class="tab-content" id="mapBox">
+                <div class="stat-line"><span class="highlight">Coordenadas del Escenario</span></div>
+                <div class="stat-line">Ubicación: Seúl, Estación de Oksu</div>
+            </div>
+
+            <!-- PESTAÑA 7: Canal Midtryst (Bloqueado por defecto) -->
+            <div class="tab-content" id="midtrystBox">
+                <div class="locked-text" id="midtrystLockedState">
+                    <p>[El acceso a esta frecuencia requiere la compra del 'Midtryst' en la Bolsa Dokkaebi]</p>
+                </div>
+                <div class="midtryst-active-content" id="midtrystActiveContent" style="display: none;">
+                    <div class="message"><span class="system-alert">[Te has conectado a la frecuencia privada del Midtryst.]</span></div>
+                </div>
+            </div>
         </div>
 
-        <!-- PESTAÑA: Monedero -->
-        <div class="tab-content" id="walletBox">
-            <div class="stat-line"><span class="highlight">Balance de Monedas de la Star Stream</span></div>
-            <div class="stat-line">Monedas Actuales: 100</div>
-            <div class="stat-line" style="color: #f59e0b;">[Las constelaciones evalúan tu valor en el escenario]</div>
+        <!-- Barra de Entrada de Texto Estilo WorldOS -->
+        <div class="action-container" id="actionContainer">
+            <div class="input-wrapper">
+                <input type="text" id="userInput" placeholder="¿Qué haces?" onkeypress="checkEnter(event)">
+            </div>
+            <button class="send-icon-btn" onclick="sendMessage()">➔</button>
         </div>
 
-        <!-- PESTAÑA: Bolsa Dokkaebi -->
-        <div class="tab-content" id="bagBox">
-            <div class="stat-line"><span class="highlight">Tienda / Inventario de Dokkaebi</span></div>
-            <div class="stat-line">> Catálogo básico disponible.</div>
-            <div class="stat-line">- Sopa de carne de dragón (Nivel inferior)</div>
-            <div class="stat-line">- Poción de recuperación de salud (Grado C)</div>
-        </div>
-
-        <!-- PESTAÑA: Mapa -->
-        <div class="tab-content" id="mapBox">
-            <div class="stat-line"><span class="highlight">Progreso de Escenario</span></div>
-            <div class="stat-line">Zona Actual: Seúl (Línea 3 del Metro)</div>
-            <div class="stat-line">Escenario Principal Activo: Escenario 1 - Prueba de Valor</div>
-        </div>
-
-        <!-- Barra de Entrada -->
-        <div class="action-input" id="inputContainer">
-            <input type="text" id="userInput" placeholder="Escribe tu acción o mensaje..." onkeypress="checkEnter(event)">
-            <button class="send-btn" onclick="sendMessage()">Enviar</button>
-        </div>
-
-        <!-- Barra de Opciones Inferior -->
-        <div class="system-nav">
-            <button class="nav-tab active" id="btn-chat" onclick="switchTab('chatBox', 'btn-chat', '[El canal #BI-7623 está activo]')">Historial de Rol</button>
-            <button class="nav-tab" id="btn-profile" onclick="switchTab('profileBox', 'btn-profile', '[Ventana de Atributos]')">Ver Perfil</button>
-            <button class="nav-tab" id="btn-wallet" onclick="switchTab('walletBox', 'btn-wallet', '[Estado de Cuenta de la Star Stream]')">Monedero</button>
-            <button class="nav-tab" id="btn-bag" onclick="switchTab('bagBox', 'btn-bag', '[Bolsa Dokkaebi Premium]')">Bolsa Dokkaebi</button>
-            <button class="nav-tab" id="btn-map" onclick="switchTab('mapBox', 'btn-map', '[Localizador de Coordenadas]')">Mapa</button>
+        <!-- Barra de Opciones de Iconos Inferior -->
+        <div class="bottom-nav">
+            <button class="nav-item active" id="nav-chat" onclick="switchTab('chatBox', 'nav-chat', 'HISTORIAL DE ROL')">
+                <span class="icon">💬</span><span>Rol</span>
+            </button>
+            <button class="nav-item" id="nav-const" onclick="switchTab('constellationsBox', 'nav-const', 'CANAL DE CONSTELACIONES')">
+                <span class="icon">✨</span><span>Const.</span>
+            </button>
+            <button class="nav-item" id="nav-profile" onclick="switchTab('profileBox', 'nav-profile', 'PERFIL')">
+                <span class="icon">👤</span><span>Perfil</span>
+            </button>
+            <button class="nav-item" id="nav-wallet" onclick="switchTab('walletBox', 'nav-wallet', 'MONEDERO')">
+                <span class="icon">🪙</span><span>Monedas</span>
+            </button>
+            <button class="nav-item" id="nav-bag" onclick="switchTab('bagBox', 'nav-bag', 'BOLSA DOKKAEBI')">
+                <span class="icon">🎒</span><span>Bolsa</span>
+            </button>
+            <button class="nav-item" id="nav-map" onclick="switchTab('mapBox', 'nav-map', 'MAPA DEL ESCENARIO')">
+                <span class="icon">🗺️</span><span>Mapa</span>
+            </button>
+            <button class="nav-item" id="nav-midtryst" onclick="switchTab('midtrystBox', 'nav-midtryst', 'CANAL MIDTRYST')">
+                <span class="icon">🔒</span><span>Midtryst</span>
+            </button>
         </div>
     </div>
 
-<script>
-    const startScreen = document.getElementById('startScreen');
-    const systemWindow = document.getElementById('systemWindow');
-    const chatBox = document.getElementById('chatBox');
-    const systemHeader = document.getElementById('systemHeader');
-    const inputContainer = document.getElementById('inputContainer');
-
-    function startNewGame() {
-        chatBox.innerHTML = `
-            <div class="message"><span class="system-alert">[El Sistema te da la bienvenida al escenario.]</span></div>
-            <div class="message"><span class="constellation">[La constelación 'Estratega Supremo' está observando tus movimientos.]</span></div>
-        `;
-        showChat();
-    }
-
-    function showChat() {
-        startScreen.style.display = 'none';
-        systemWindow.style.display = 'block';
-        switchTab('chatBox', 'btn-chat', '[El canal #BI-7623 está activo]');
-    }
-
-    function switchTab(tabId, buttonId, headerText) {
-        const contents = document.querySelectorAll('.tab-content');
-        contents.forEach(content => content.style.display = 'none');
-
-        const tabs = document.querySelectorAll('.nav-tab');
-        tabs.forEach(tab => tab.classList.remove('active'));
-
-        document.getElementById(tabId).style.display = 'block';
-        document.getElementById(buttonId).classList.add('active');
-
-        systemHeader.innerText = headerText;
-
-        if (tabId === 'chatBox') {
-            inputContainer.style.display = 'flex';
-            chatBox.scrollTop = chatBox.scrollHeight;
-        } else {
-            inputContainer.style.display = 'none';
-        }
-    }
-
-    function sendMessage() {
-        const input = document.getElementById('userInput');
-        if (input.value.trim() !== "") {
-            const newMessage = document.createElement('div');
-            newMessage.className = 'message';
-            newMessage.innerHTML = `> ${input.value}`;
-            chatBox.appendChild(newMessage);
-            input.value = "";
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-    }
-
-    function checkEnter(event) {
-        if (event.key === 'Enter') { sendMessage(); }
-    }
-</script>
-
+    <!-- Vinculación de la lógica de programación externa -->
+    <script src="js/main.js"></script>
 </body>
 </html>
