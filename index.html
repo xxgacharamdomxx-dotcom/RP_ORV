@@ -74,7 +74,6 @@
             box-shadow: 0 0 20px #00d2ff, 0 0 40px #00d2ff;
         }
 
-        /* Botón de reanudar (Oculto por defecto) */
         .resume-btn {
             display: none;
             border-color: #a855f7;
@@ -88,7 +87,7 @@
             box-shadow: 0 0 20px #a855f7, 0 0 40px #a855f7;
         }
 
-        /* Ventana del Sistema de Rol (Oculta al inicio) */
+        /* Ventana del Sistema de Rol */
         .system-window {
             display: none;
             background: rgba(10, 25, 47, 0.85);
@@ -110,11 +109,17 @@
             letter-spacing: 2px;
         }
 
-        .system-content {
+        /* Contenedores de Pantallas de Contenido */
+        .tab-content {
             padding: 20px;
             height: 350px;
             overflow-y: auto;
             border-bottom: 1px solid rgba(0, 210, 255, 0.3);
+            display: none;
+        }
+
+        #chatBox {
+            display: block; /* Se muestra por defecto */
         }
 
         .message {
@@ -126,10 +131,12 @@
         .constellation { color: #f59e0b; font-weight: bold; }
         .system-alert { color: #00d2ff; font-weight: bold; }
 
+        /* Sección de Entrada de Texto */
         .action-input {
             display: flex;
             background: rgba(5, 10, 18, 0.6);
             padding: 10px;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
         }
 
         input[type="text"] {
@@ -152,6 +159,43 @@
             cursor: pointer;
             border-radius: 4px;
         }
+
+        /* Barra de Navegación Inferior */
+        .system-nav {
+            display: flex;
+            flex-wrap: wrap;
+            background: rgba(10, 25, 47, 0.95);
+        }
+
+        .nav-tab {
+            flex: 1;
+            min-width: 100px;
+            background: transparent;
+            border: none;
+            border-right: 1px solid rgba(0, 210, 255, 0.2);
+            color: #8892b0;
+            padding: 12px 5px;
+            font-family: inherit;
+            font-size: 11px;
+            cursor: pointer;
+            text-align: center;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .nav-tab:last-child {
+            border-right: none;
+        }
+
+        .nav-tab:hover, .nav-tab.active {
+            color: #00d2ff;
+            background: rgba(0, 210, 255, 0.1);
+            font-weight: bold;
+        }
+        
+        /* Estilos de datos internos */
+        .stat-line { margin-bottom: 10px; }
+        .highlight { color: #00d2ff; }
     </style>
 </head>
 <body>
@@ -167,13 +211,57 @@
         </div>
     </div>
 
-    <!-- Interfaz de Rol -->
+    <!-- Interfaz de Rol Completa -->
     <div class="system-window" id="systemWindow">
-        <div class="system-header">[El canal #BI-7623 está activo]</div>
-        <div class="system-content" id="chatBox"></div>
-        <div class="action-input">
-            <input type="text" id="userInput" placeholder="Escribe tu acción o mensaje de Constelación..." onkeypress="checkEnter(event)">
+        <div class="system-header" id="systemHeader">[El canal #BI-7623 está activo]</div>
+        
+        <!-- PESTAÑA: Historial de Rol -->
+        <div class="tab-content" id="chatBox"></div>
+
+        <!-- PESTAÑA: Perfil -->
+        <div class="tab-content" id="profileBox">
+            <div class="stat-line"><span class="highlight">Información de la Ficha</span></div>
+            <div class="stat-line">Nombre: [Encarnación Sin Registrar]</div>
+            <div class="stat-line">Patrocinador Fijo: [Ninguno]</div>
+            <div class="stat-line">Atributo Privado: [Lector de Historias]</div>
+            <div class="stat-line">Estigma: [Ninguno]</div>
+        </div>
+
+        <!-- PESTAÑA: Monedero -->
+        <div class="tab-content" id="walletBox">
+            <div class="stat-line"><span class="highlight">Balance de Monedas de la Star Stream</span></div>
+            <div class="stat-line">Monedas Actuales: 100 🪙</div>
+            <div class="stat-line" style="color: #f59e0b;">[Las constelaciones evalúan tu valor en el escenario]</div>
+        </div>
+
+        <!-- PESTAÑA: Bolsa Dokkaebi -->
+        <div class="tab-content" id="bagBox">
+            <div class="stat-line"><span class="highlight">Tienda / Inventario de Dokkaebi</span></div>
+            <div class="stat-line">> Catálogo básico disponible.</div>
+            <div class="stat-line">- Sopa de carne de dragón (Nivel inferior)</div>
+            <div class="stat-line">- Poción de recuperación de salud (Grado C)</div>
+        </div>
+
+        <!-- PESTAÑA: Mapa -->
+        <div class="tab-content" id="mapBox">
+            <div class="stat-line"><span class="highlight">Progreso de Escenario</span></div>
+            <div class="stat-line">Zona Actual: Seúl (Línea 3 del Metro)</div>
+            <div class="stat-line">Escenario Principal Activo: Escenario 1 - Prueba de Valor</div>
+        </div>
+
+        <!-- Barra de Entrada (Solo visible si estás en el historial) -->
+        <div class="action-input" id="inputContainer">
+            <input type="text" id="userInput" placeholder="Escribe tu acción o mensaje..." onkeypress="checkEnter(event)">
             <button class="send-btn" onclick="sendMessage()">Enviar</button>
+        </div>
+
+        <!-- Barra de Opciones Inferior -->
+        <div class="system-nav">
+            <button class="nav-tab active" id="btn-chat" onclick="switchTab('chatBox', 'btn-chat', '[El canal #BI-7623 está activo]')">Historial de Rol</button>
+            <button class="nav-tab" id="btn-profile" onclick="switchTab('profileBox', 'btn-profile', '[Ventana de Atributos]')">Ver Perfil</button>
+            <button class="nav-tab" id="btn-wallet" onclick="switchTab('walletBox', 'btn-wallet', '[Estado de Cuenta de la Star Stream]')">Monedero</button>
+            <button class="nav-tab" id="btn-bag" onclick="switchTab('bagBox', 'btn-bag', '[Bolsa Dokkaebi Premium]')">Bolsa Dokkaebi</button>
+            <button class="nav-tab" id="btn-map" onclick="switchTab('mapBox', 'btn-map', '[Localizador de Coordenadas]')">Mapa</button>
         </div>
     </div>
 
@@ -182,8 +270,9 @@
     const systemWindow = document.getElementById('systemWindow');
     const chatBox = document.getElementById('chatBox');
     const resumeBtn = document.getElementById('resumeBtn');
+    const systemHeader = document.getElementById('systemHeader');
+    const inputContainer = document.getElementById('inputContainer');
 
-    // Al cargar la página, comprueba si hay un chat previo guardado
     window.onload = function() {
         const savedChat = localStorage.getItem('orv_chat_history');
         if (savedChat && savedChat.trim() !== "") {
@@ -192,7 +281,25 @@
     }
 
     function startNewGame() {
-        // Limpia el historial previo si decide comenzar de cero
+        localStorage.removeItem('orv_chat_history');
+        chatBox.innerHTML = `
+            <div class="message"><span class="system-alert">[El Sistema te da la bienvenida al escenario.]</span></div>
+<script>
+    const startScreen = document.getElementById('startScreen');
+    const systemWindow = document.getElementById('systemWindow');
+    const chatBox = document.getElementById('chatBox');
+    const resumeBtn = document.getElementById('resumeBtn');
+    const systemHeader = document.getElementById('systemHeader');
+    const inputContainer = document.getElementById('inputContainer');
+
+    window.onload = function() {
+        const savedChat = localStorage.getItem('orv_chat_history');
+        if (savedChat && savedChat.trim() !== "") {
+            resumeBtn.style.display = 'block';
+        }
+    }
+
+    function startNewGame() {
         localStorage.removeItem('orv_chat_history');
         chatBox.innerHTML = `
             <div class="message"><span class="system-alert">[El Sistema te da la bienvenida al escenario.]</span></div>
@@ -211,7 +318,33 @@
     function showChat() {
         startScreen.style.display = 'none';
         systemWindow.style.display = 'block';
-        chatBox.scrollTop = chatBox.scrollHeight;
+        switchTab('chatBox', 'btn-chat', '[El canal #BI-7623 está activo]');
+    }
+
+    // Cambiar de Pestaña de Forma Fluida
+    function switchTab(tabId, buttonId, headerText) {
+        // Ocultar todos los contenidos de pestañas
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.style.display = 'none');
+
+        // Desactivar todos los botones de navegación
+        const tabs = document.querySelectorAll('.nav-tab');
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        // Mostrar pestaña seleccionada y activar su botón
+        document.getElementById(tabId).style.display = 'block';
+        document.getElementById(buttonId).classList.add('active');
+
+        // Actualizar el título del header superior
+        systemHeader.innerText = headerText;
+
+        // Ocultar o mostrar la barra de entrada de texto según la pestaña
+        if (tabId === 'chatBox') {
+            inputContainer.style.display = 'flex';
+            chatBox.scrollTop = chatBox.scrollHeight;
+        } else {
+            inputContainer.style.display = 'none';
+        }
     }
 
     function sendMessage() {
