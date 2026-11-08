@@ -1,4 +1,3 @@
-
 const startScreen = document.getElementById('startScreen');
 const appContainer = document.getElementById('appContainer');
 const chatBox = document.getElementById('chatBox');
@@ -6,7 +5,6 @@ const appHeader = document.getElementById('appHeader');
 const actionContainer = document.getElementById('actionContainer');
 const mainContent = document.getElementById('mainContent');
 
-// Variables de Estado de la Encarnación
 let playerCoins = 100;
 let hasMidtryst = false;
 let currentActiveTab = 'chatBox';
@@ -23,7 +21,6 @@ function startNewGame() {
 
 function switchTab(tabId, buttonId, headerText) {
     currentActiveTab = tabId;
-    
     const contents = document.querySelectorAll('.tab-content');
     contents.forEach(content => content.style.display = 'none');
 
@@ -32,27 +29,14 @@ function switchTab(tabId, buttonId, headerText) {
 
     document.getElementById(tabId).style.display = 'block';
     document.getElementById(buttonId).classList.add('active');
-
     appHeader.innerText = headerText;
 
-    // Controlar visibilidad de la barra de entrada ("¿Qué haces?")
     if (tabId === 'chatBox' || (tabId === 'midtrystBox' && hasMidtryst)) {
         actionContainer.style.display = 'flex';
     } else {
         actionContainer.style.display = 'none';
     }
-    
     mainContent.scrollTop = mainContent.scrollHeight;
-}
-
-function startNewGame() {
-    chatBox.innerHTML = `
-        <div class="message"><span class="system-alert">[El Sistema te da la bienvenida al escenario.]</span></div>
-        <div class="message">Camináis hacia la salida del jardín botánico, con los sentidos alerta a cualquier crujido de hojas o voz lejana que pueda delataros.</div>
-    `;
-    startScreen.style.display = 'none';
-    appContainer.style.display = 'flex';
-    switchTab('chatBox', 'nav-chat', 'HISTORIAL DE ROL');
 }
 
 function sendMessage() {
@@ -61,18 +45,15 @@ function sendMessage() {
         const newMessage = document.createElement('div');
         newMessage.className = 'message';
         newMessage.innerHTML = `${input.value}`;
-        
+
         if (currentActiveTab === 'chatBox') {
             chatBox.appendChild(newMessage);
         } else if (currentActiveTab === 'midtrystBox' && hasMidtryst) {
             document.getElementById('midtrystActiveContent').appendChild(newMessage);
         }
-        
+
         input.value = "";
-        // Corrección para evitar bloqueos en celulares:
         mainContent.scrollTop = mainContent.scrollHeight;
-    }
-}
     }
 }
 
@@ -80,24 +61,19 @@ function checkEnter(event) {
     if (event.key === 'Enter') { sendMessage(); }
 }
 
-// Mecánica del Sistema: Comprar Transmisor Midtryst
 function buyMidtryst() {
     if (hasMidtryst) {
         alert("[Ya posees este objeto en tu inventario.]");
         return;
     }
-    
     if (playerCoins >= 50) {
         playerCoins -= 50;
         hasMidtryst = true;
-        
-        // Actualizar visualizaciones
         document.getElementById('coinDisplay').innerText = playerCoins;
         document.getElementById('midtrystLockedState').style.display = 'none';
         document.getElementById('midtrystActiveContent').style.display = 'block';
         document.getElementById('nav-midtryst').querySelector('.icon').innerText = '🔓';
-        document.getElementById('midtrystShopItem').innerHTML = "<span style='color: #10b981;'>[Objeto 'Midtryst' Adquirido]</span>";
-        
+        document.getElementById('midtrystShopItem').innerHTML = "[Objeto 'Midtryst' Adquirido]";
         alert("[Has adquirido el 'Midtryst'. La frecuencia de transmisión privada ha sido abierta.]");
     } else {
         alert("[Monedas insuficientes para realizar el intercambio con el Dokkaebi.]");
