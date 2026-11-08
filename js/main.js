@@ -5,24 +5,41 @@ const appHeader = document.getElementById('appHeader');
 const actionContainer = document.getElementById('actionContainer');
 const mainContent = document.getElementById('mainContent');
 
+// Variables de Estado de la Encarnación
 let playerCoins = 100;
 let hasMidtryst = false;
 let currentActiveTab = 'chatBox';
+
+// Variables de Estadísticas del Dado
 let statStr = 0;
 let statVit = 0;
 let statAgi = 0;
 let statMag = 0;
 let statsRolled = false;
 
-
-// Nueva función para el botón de "Comenzar"
 function startNewGame() {
-    // Oculta la pantalla negra de inicio y muestra el formulario de registro
+    // Oculta la pantalla de inicio y muestra el formulario de registro
     startScreen.style.display = 'none';
     document.getElementById('creationScreen').style.display = 'flex';
 }
 
-// Nueva función para procesar el personaje e iniciar el rol
+function rollBaseStats() {
+    // Genera estadísticas aleatorias entre 5 y 15
+    statStr = Math.floor(Math.random() * 11) + 5;
+    statVit = Math.floor(Math.random() * 11) + 5;
+    statAgi = Math.floor(Math.random() * 11) + 5;
+    statMag = Math.floor(Math.random() * 11) + 5;
+    statsRolled = true;
+
+    // Actualiza los valores en la pantalla de previsualización
+    document.getElementById('rollStr').innerText = statStr;
+    document.getElementById('rollVit').innerText = statVit;
+    document.getElementById('rollAgi').innerText = statAgi;
+    document.getElementById('rollMag').innerText = statMag;
+    
+    alert("[El Sistema está evaluando tus estadísticas corporales...]");
+}
+
 function saveCharacterAndStart() {
     const nameInput = document.getElementById('charName').value.trim();
     const ageInput = document.getElementById('charAge').value.trim();
@@ -38,17 +55,18 @@ function saveCharacterAndStart() {
         return;
     }
 
-    // Insertar datos de texto
+    // Insertar datos de texto en el Perfil
     document.getElementById('profileName').innerText = `[${nameInput}]`;
     document.getElementById('profileAge').innerText = ageInput !== "" ? `${ageInput} años` : "--";
     document.getElementById('profileDesc').innerText = descInput !== "" ? descInput : "--";
 
-    // Insertar datos numéricos generados por el dado
+    // Insertar datos numéricos generados por el dado en el Perfil
     document.getElementById('profileStr').innerText = `Nvl. ${statStr}`;
     document.getElementById('profileVit').innerText = `Nvl. ${statVit}`;
     document.getElementById('profileAgi').innerText = `Nvl. ${statAgi}`;
     document.getElementById('profileMag').innerText = `Nvl. ${statMag}`;
 
+    // Mensaje de bienvenida en el Chat
     chatBox.innerHTML = `
         <div class="message"><span class="system-alert">[El Sistema ha registrado con éxito a la encarnación ${nameInput}.]</span></div>
         <div class="message"><span class="system-alert">[El Sistema te da la bienvenida al escenario.]</span></div>
@@ -120,21 +138,3 @@ function buyMidtryst() {
         alert("[Monedas insuficientes para realizar el intercambio con el Dokkaebi.]");
     }
 }
-function rollBaseStats() {
-    // Genera estadísticas aleatorias entre 5 y 15
-    statStr = Math.floor(Math.random() * 11) + 5;
-    statVit = Math.floor(Math.random() * 11) + 5;
-    statAgi = Math.floor(Math.random() * 11) + 5;
-    statMag = Math.floor(Math.random() * 11) + 5;
-    statsRolled = true;
-
-    // Actualiza los valores en la pantalla de previsualización
-    document.getElementById('rollStr').innerText = statStr;
-    document.getElementById('rollVit').innerText = statVit;
-    document.getElementById('rollAgi').innerText = statAgi;
-    document.getElementById('rollMag').innerText = statMag;
-    
-    // Pequeño sonido visual o alerta del sistema
-    alert("[El Sistema está evaluando tus estadísticas corporales...]");
-}
-
