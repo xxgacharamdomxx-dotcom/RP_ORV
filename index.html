@@ -10,36 +10,41 @@
 <body>
 
     <!-- Pantalla de Inicio -->
-    <div class="start-screen" id="startScreen">
-        <div class="orv-box">
-            <p class="orv-text">[Las historias viven, y uno vive por las historias]</p>
-        </div>
-        <div class="menu-buttons">
-            <button class="neon-btn" onclick="startNewGame()">comenzar..?</button>
-        </div>
-    </div>
-    <!-- PANTALLA INTERMEDIA: Creación de Personaje -->
+    <!-- PANTALLA INTERMEDIA: Creación de Personaje con Dados -->
     <div class="start-screen" id="creationScreen" style="display: none;">
         <div class="orv-box">
             <p class="orv-text">[Ingresa los datos de la Encarnación]</p>
-            <div style="margin-top: 20px; text-align: left; display: flex; flex-direction: column; gap: 15px;">
+            <div style="margin-top: 15px; text-align: left; display: flex; flex-direction: column; gap: 12px;">
                 <div>
-                    <label style="display:block; font-size:12px; color:#00d2ff; margin-bottom:5px;">NOMBRE:</label>
-                    <input type="text" id="charName" placeholder="Ej. Kim Dokja" style="width:90%; background:#161b22; border:1px solid #30363d; padding:8px; color:#fff; font-family:inherit;">
+                    <label style="display:block; font-size:11px; color:#00d2ff; margin-bottom:3px;">NOMBRE:</label>
+                    <input type="text" id="charName" placeholder="Ej. Kim Dokja" style="width:90%; background:#161b22; border:1px solid #30363d; padding:6px; color:#fff; font-family:inherit;">
                 </div>
                 <div>
-                    <label style="display:block; font-size:12px; color:#00d2ff; margin-bottom:5px;">EDAD:</label>
-                    <input type="text" id="charAge" placeholder="Ej. 28" style="width:90%; background:#161b22; border:1px solid #30363d; padding:8px; color:#fff; font-family:inherit;">
+                    <label style="display:block; font-size:11px; color:#00d2ff; margin-bottom:3px;">EDAD:</label>
+                    <input type="text" id="charAge" placeholder="Ej. 28" style="width:90%; background:#161b22; border:1px solid #30363d; padding:6px; color:#fff; font-family:inherit;">
                 </div>
                 <div>
-                    <label style="display:block; font-size:12px; color:#00d2ff; margin-bottom:5px;">APARIENCIA / DESCRIPCIÓN:</label>
-                    <input type="text" id="charDesc" placeholder="Ej. Cabello negro, ojos oscuros, abrigo blanco..." style="width:90%; background:#161b22; border:1px solid #30363d; padding:8px; color:#fff; font-family:inherit;">
+                    <label style="display:block; font-size:11px; color:#00d2ff; margin-bottom:3px;">APARIENCIA / DESCRIPCIÓN:</label>
+                    <input type="text" id="charDesc" placeholder="Ej. Abrigo blanco..." style="width:90%; background:#161b22; border:1px solid #30363d; padding:6px; color:#fff; font-family:inherit;">
+                </div>
+                
+                <!-- Apartado de Estadísticas con Sistema de Dados -->
+                <div style="border-top: 1px solid rgba(0, 210, 255, 0.2); padding-top: 10px; margin-top: 5px;">
+                    <label style="display:block; font-size:11px; color:#00d2ff; margin-bottom:8px;">ESTADÍSTICAS BASE:</label>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <button type="button" class="buy-btn" style="background: transparent; border: 1px solid #f59e0b; color: #f59e0b; padding: 10px;" onclick="rollBaseStats()">🎲 Lanzar Dados</button>
+                        <div style="font-size: 12px; line-height: 1.4; color: #c9d1d9;">
+                            <div>Fuerza: <span id="rollStr">--</span></div>
+                            <div>Resistencia: <span id="rollVit">--</span></div>
+                            <div>Agilidad: <span id="rollAgi">--</span></div>
+                            <div>Poder Mágico: <span id="rollMag">--</span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <button class="neon-btn" onclick="saveCharacterAndStart()">registrar encarnación</button>
     </div>
-
     <!-- Interfaz Estilo WorldOS Completa -->
     <div class="app-container" id="appContainer">
         <div class="app-header" id="appHeader">HISTORIAL DE ROL</div>
@@ -54,7 +59,7 @@
                 <div class="message"><span class="constellation">[La constelación 'Dragón Negro del Abismo de Fuego' devora con la mirada tu historial.]</span></div>
             </div>
 
-            <!-- PESTAÑA 3: Perfil (Actualizada) -->
+                        <!-- PESTAÑA 3: Perfil (Con Estadísticas) -->
             <div class="tab-content" id="profileBox">
                 <div class="stat-line"><span class="highlight">Ventana de Estado</span></div>
                 <div class="stat-line">Nombre: <span id="profileName">[Sin Registrar]</span></div>
@@ -62,6 +67,14 @@
                 <div class="stat-line">Apariencia: <span id="profileDesc">--</span></div>
                 <div class="stat-line">Modificador: [Ninguno]</div>
                 <div class="stat-line">Atributo Privado: [Lector de Historias]</div>
+                
+                <div class="stat-line" style="border-top: 1px solid rgba(0, 210, 255, 0.2); margin-top: 15px; padding-top: 15px;">
+                    <span class="highlight">Estadísticas de Combate</span>
+                </div>
+                <div class="stat-line">Fuerza: <span id="profileStr" style="color: #f59e0b;">--</span></div>
+                <div class="stat-line">Resistencia: <span id="profileVit" style="color: #f59e0b;">--</span></div>
+                <div class="stat-line">Agilidad: <span id="profileAgi" style="color: #f59e0b;">--</span></div>
+                <div class="stat-line">Poder Mágico: <span id="profileMag" style="color: #f59e0b;">--</span></div>
             </div>
 
             <!-- PESTAÑA 4: Monedero -->
