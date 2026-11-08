@@ -5,7 +5,13 @@ const appHeader = document.getElementById('appHeader');
 const actionContainer = document.getElementById('actionContainer');
 const mainContent = document.getElementById('mainContent');
 
-// Variables globales leídas por ambos bloques
+// VARIABLES GLOBALES DE LA ENCARNACIÓN (Declaradas correctamente)
+window.statStr = 0;
+window.statVit = 0;
+window.statAgi = 0;
+window.statMag = 0;
+window.statsRolled = false;
+
 let playerCoins = 100;
 let hasMidtryst = false;
 let currentActiveTab = 'chatBox';
@@ -25,7 +31,7 @@ function saveCharacterAndStart() {
         return;
     }
 
-    if (typeof statsRolled === 'undefined' || !statsRolled) {
+    if (!window.statsRolled) {
         alert("[Debes lanzar los dados 🎲 para inicializar tus estadísticas base antes del registro.]");
         return;
     }
@@ -36,10 +42,10 @@ function saveCharacterAndStart() {
     document.getElementById('profileDesc').innerText = descInput !== "" ? descInput : "--";
 
     // Insertar datos numéricos generados por el dado en el Perfil
-    document.getElementById('profileStr').innerText = `Nvl. ${statStr}`;
-    document.getElementById('profileVit').innerText = `Nvl. ${statVit}`;
-    document.getElementById('profileAgi').innerText = `Nvl. ${statAgi}`;
-    document.getElementById('profileMag').innerText = `Nvl. ${statMag}`;
+    document.getElementById('profileStr').innerText = `Nvl. ${window.statStr}`;
+    document.getElementById('profileVit').innerText = `Nvl. ${window.statVit}`;
+    document.getElementById('profileAgi').innerText = `Nvl. ${window.statAgi}`;
+    document.getElementById('profileMag').innerText = `Nvl. ${window.statMag}`;
 
     // Mensaje de bienvenida en el Chat
     chatBox.innerHTML = `
